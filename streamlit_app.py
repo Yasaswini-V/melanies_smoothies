@@ -15,6 +15,7 @@ session = cnx.session()
 name_on_order=st.text_input("Name on Smoothies: ")
 st.write("The name of your Smoothies will be:",name_on_order)
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
+st.stop()
 
 ingredient_list=st.multiselect("Choose up to 5 ingredients:",my_dataframe,max_selections=5)
 if ingredient_list:
@@ -24,7 +25,6 @@ if ingredient_list:
         st.subheader(fruit+' Nutrition Infromation')
         fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+fruit)
         fv_df=st.dataframe(data=fruityvice_response.json(),use_container_width=True)
-        st.stop()
     my_insert_stmt = """ insert into smoothies.public.orders(ingredients,name_on_order)
             values ('""" + ingredients_string + """','"""+ name_on_order +"""')"""
     
