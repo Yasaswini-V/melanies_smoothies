@@ -1,4 +1,4 @@
-# Import python packages
+s# Import python packages
 import streamlit as st
 from snowflake.snowpark.functions import col
 import requests
@@ -15,6 +15,7 @@ session = cnx.session()
 name_on_order=st.text_input("Name on Smoothies: ")
 st.write("The name of your Smoothies will be:",name_on_order)
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
+st.dataframe(my_dataframe,use_container_width=True)
 st.stop()
 
 ingredient_list=st.multiselect("Choose up to 5 ingredients:",my_dataframe,max_selections=5)
